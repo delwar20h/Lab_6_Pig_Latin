@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class Main {
@@ -6,59 +5,46 @@ public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         String userWord;
-        String removedFirstLetter;
         String userInput;
 
         System.out.println("Welcome to the English to Pig Latin word Translator!");
 
-        // If Else statements are wrapped in a do while statement. So, the program will have
-        // at least one iteration. If the users enters the required input the program will run
-        // again. If the input is anything other than the required program will end.
         do {
             System.out.println("Enter a word to be translated into Pig Latin: ");
-            userWord = scan.nextLine();
+            userWord = scan.nextLine().toLowerCase();
+            char letter;
+            int index = 0;
 
-            // Converts user input to lowercase and gets the first letter of the word.
-            // If the word begins with vowel the first letter is stored in letterVowel.
-            // If the word begins with a consonant the first letter is stored in letterConsonant.
-            char letterVowel = userWord.toLowerCase().charAt(0);
-            char letterConsonant = userWord.toLowerCase().charAt(0);
+            // for loop that checks each character of the userWord.
+            for (int i = 0; i < userWord.length(); i++) {
+                letter = userWord.charAt(i);
+                {
+                    if (letter == 'a' || letter == 'e' || letter == 'i' ||
+                            letter == 'o' || letter == 'u') {
 
-            // If else statement below checks if the word begins with a vowel, consonant or neither.
-            // If userWord begins with a vowel its prints the userWord with "way" concatenated.
-            // If userWord begins with a consonant it take the first letter of the word,
-            // adds it to the end of the word and add "ay" before printing it.
-            if (letterVowel == 'a' || letterVowel == 'e' || letterVowel == 'i' ||
-                    letterVowel == 'o' || letterVowel == 'u') {
-                System.out.println("Your word translated to Pig Latin is: " + userWord + "way");
-            }
-            else if (letterConsonant != 'a' && letterConsonant != 'e' && letterConsonant != 'i' &&
-                    letterConsonant != 'o' && letterConsonant != 'u' && !Character.isDigit(letterConsonant)) {
-                removedFirstLetter = userWord.substring(1);
-                System.out.println("Your word translated to Pig Latin is: " + removedFirstLetter +
-                        letterConsonant + "ay");
-            }
-            else {
-                System.out.println("Invalid entry.");
+                        // Checks if the index is equal to zero , if true the loop only performed once
+                        // and the first letter of the userWord was a vowel.
+                        // The inner loop condition is true and it prints out the userWord with "way" added.
+                        if (index == 0) {
+                            System.out.println("Your word translated to Pig Latin is: " + userWord + "way");
+
+                            // Else statement runs if the index is not 0. Index greater than 0 means
+                            // the loop ran more than once and the first letter was not a vowel.
+                        } else {
+                            System.out.println("Your word translated to Pit Latin is: "
+                                    + userWord.substring(index, userWord.length())
+                                    + userWord.substring(0, index) + "ay");
+                        }
+                        break;
+                    } else {
+                        // If the letter is not a vowel the index is incremented by 1 to check the
+                        // letter at the next index.
+                        index++;
+                    }
+                }
             }
             System.out.println("Would you like to translate another word? 'yes or no': ");
             userInput = scan.nextLine();
         } while (userInput.contains("y"));
     }
 }
-
-/*
-Long version of else if statement that checks if the first letter is a consonant.
-Done a lot quicker by checking to see if first letter is not a vowel.
-else if (letterConsonant == 'b' || letterConsonant == 'c' || letterConsonant == 'd'
-         || letterConsonant == 'f' || letterConsonant == 'g' || letterConsonant == 'h'
-         || letterConsonant == 'j' || letterConsonant == 'k' || letterConsonant == 'l'
-         || letterConsonant == 'm' || letterConsonant == 'n' || letterConsonant == 'p'
-         || letterConsonant == 'q' || letterConsonant == 'r' || letterConsonant == 's'
-         || letterConsonant == 't' || letterConsonant == 'v' || letterConsonant == 'w'
-         || letterConsonant == 'x' || letterConsonant == 'y' || letterConsonant == 'z') {
-         removedFirstLetter = userWord.substring(1);
-         System.out.println("Your word translated to Pig Latin is: " + removedFirstLetter +
-         letterConsonant + "ay");
-         }*/
-
